@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mandalia Mudanya — Menü</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0e0e0c; --surface: #131411; --surface-low: #1b1c19;
+  --gold: #e6c277; --gold-dim: #a07820; --gold-faint: rgba(230,194,119,0.07);
+  --text: #e4e2dd; --text-muted: #9a9890; --border: rgba(230,194,119,0.14);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 10px; }
+
+/* HERO */
+.hero { min-height: 36vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 56px; position: relative; border-bottom: 1px solid var(--border); }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(230,194,119,0.05) 0%, transparent 70%); pointer-events: none; }
+.hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px; background: linear-gradient(90deg,#e6c277 0%,#fff8e7 50%,#e6c277 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+@keyframes shimmer { 0%{background-position:0% center} 100%{background-position:200% center} }
+.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(34px,6vw,68px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.hero-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(15px,2vw,20px); color: rgba(230,194,119,0.65); margin-bottom: 36px; }
+.hero-ornament { display: flex; align-items: center; gap: 16px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dim); }
+.hero-ornament span { width: 48px; height: 1px; background: var(--gold-dim); display: block; }
+
+/* STICKY NAV */
+.cat-nav { position: sticky; top: 0; z-index: 50; background: rgba(14,14,12,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+.cat-nav::-webkit-scrollbar { display: none; }
+.cat-nav-inner { display: flex; justify-content: center; padding: 0 24px; width: max-content; min-width: 100%; }
+.cat-nav a { display: block; padding: 15px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.3s; }
+.cat-nav a:hover, .cat-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* LAYOUT */
+.menu-container { max-width: 1000px; margin: 0 auto; padding: 0 24px 120px; }
+
+/* SECTION */
+.menu-section { padding-top: 80px; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 12px; background: linear-gradient(90deg,#e6c277 0%,#fff8e7 50%,#e6c277 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(26px,4vw,40px); font-weight: 400; line-height: 1.2; margin-bottom: 18px; }
+.section-divider { width: 40px; height: 1px; background: var(--gold); margin: 0 auto; opacity: 0.4; }
+
+/* SUBSECTION */
+.sub-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 18px; color: rgba(230,194,119,0.55); text-align: center; margin: 48px 0 28px; display: flex; align-items: center; gap: 16px; }
+.sub-title::before, .sub-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* MENU GRID */
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+@media(max-width:620px){ .menu-grid { grid-template-columns: 1fr; } }
+
+.menu-item { display: flex; align-items: center; gap: 8px; padding: 13px 18px; border-radius: 2px; transition: background 0.25s; }
+.menu-item:hover { background: var(--gold-faint); }
+.item-bullet { width: 3px; height: 3px; border-radius: 50%; background: var(--gold-dim); flex-shrink: 0; opacity: 0.45; transition: opacity 0.25s; }
+.menu-item:hover .item-bullet { opacity: 1; }
+.item-name { font-size: 14px; font-weight: 400; color: var(--text); flex: 1; letter-spacing: 0.01em; }
+.item-line { flex: 1; border-bottom: 1px dotted rgba(230,194,119,0.12); margin: 0 10px 3px; min-width: 12px; }
+.item-price { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold); white-space: nowrap; flex-shrink: 0; }
+
+/* WINE */
+.wine-tabs { display: flex; justify-content: center; gap: 4px; margin: 32px 0 40px; flex-wrap: wrap; }
+.wine-tab { padding: 9px 22px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.3s; }
+.wine-tab:hover, .wine-tab.active { border-color: var(--gold); color: var(--gold); background: var(--gold-faint); }
+.wine-panel { display: none; }
+.wine-panel.active { display: block; }
+
+/* RAKI BLOCK */
+.raki-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:700px){ .raki-cols { grid-template-columns: 1fr; } }
+.raki-block { background: var(--surface-low); border: 1px solid var(--border); border-radius: 2px; padding: 28px 24px; }
+.raki-block-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: rgba(230,194,119,0.5); margin-bottom: 20px; text-align: center; }
+
+/* FOOTER */
+.menu-footer { text-align: center; padding: 56px 24px; border-top: 1px solid var(--border); margin-top: 80px; }
+.menu-footer-logo { font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 0.25em; color: var(--gold); margin-bottom: 8px; }
+.menu-footer-sub { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); opacity: 0.45; }
+
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <p class="hero-eyebrow">Mudanya'nın İncisi</p>
+  <h1 class="hero-title">MANDALIA MUDANYA</h1>
+  <p class="hero-sub">"Bir Ağacın Gölgesinde"</p>
+  <div class="hero-ornament"><span></span>MENÜ<span></span></div>
+</div>
+
+<!-- Sticky Nav -->
+<nav class="cat-nav" id="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="#baslangiclar">Başlangıçlar</a>
+    <a href="#salatalar">Salatalar</a>
+    <a href="#sicak">Sıcak Başlangıç</a>
+    <a href="#denizurunleri">Deniz Ürünleri</a>
+    <a href="#tatlilar">Tatlılar</a>
+    <a href="#sarap">Şarap</a>
+    <a href="#raki">Rakı</a>
+    <a href="#bira">Bira & İçecek</a>
+  </div>
+</nav>
+
+<div class="menu-container">
+
+  <!-- BAŞLANGIÇLAR -->
+  <section class="menu-section fade-in" id="baslangiclar">
+    <div class="section-header">
+      <span class="section-label">Soğuk</span>
+      <h2 class="section-title">Başlangıçlar</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Fava</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Sütlü Patlıcan</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Hayırlı</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kepse</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kaya Koruğu</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mütebbel (Pastırmalı)</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Girit (Antep Usulü)</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Köpoğlu</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Atom</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mikanos</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Portakallı Kereviz</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Karnıkara</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Semizotu (Yoğurtlu)</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Ege Rüyası</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Atina</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">İsli Yoğurtlu Mantar</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yunan Kızı</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yaprak Sarma (Vişneli)</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Sofia</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Semizotu (Vişneli)</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Enginar Kalbi</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Çanak Enginar</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Ege Karması (Avokadolu)</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kabak Marin</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kuru Cacık (Mev. Meyveleri)</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+    </div>
+  </section>
+
+  <!-- SALATALAR -->
+  <section class="menu-section fade-in" id="salatalar">
+    <div class="section-header">
+      <span class="section-label">Taze</span>
+      <h2 class="section-title">Salatalar</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="sub-title">Soğuk Deniz Ürünleri</div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Levrek Marin</span><div class="item-line"></div><span class="item-price">550 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Ahtapot Carpaccio</span><div class="item-line"></div><span class="item-price">650 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kalamar Salatası</span><div class="item-line"></div><span class="item-price">650 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Uskumru Çiroz</span><div class="item-line"></div><span class="item-price">450 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Hamsi Ançuez</span><div class="item-line"></div><span class="item-price">500 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Torik Lakerda</span><div class="item-line"></div><span class="item-price">250 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">İsli Uskumru</span><div class="item-line"></div><span class="item-price">450 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Avokadolu Karides</span><div class="item-line"></div><span class="item-price">600 ₺</span></div>
+    </div>
+
+    <div class="sub-title">Yeşil Salatalar</div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mevsim Salata</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeşil Salata</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Eftelya Salata</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Çoban Salata</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Roka Salata</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Boğaziçi Salata</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Gavurdağı Salata</span><div class="item-line"></div><span class="item-price">400 ₺</span></div>
+    </div>
+  </section>
+
+  <!-- SICAK BAŞLANGIÇ -->
+  <section class="menu-section fade-in" id="sicak">
+    <div class="section-header">
+      <span class="section-label">Izgara & Kızartma</span>
+      <h2 class="section-title">Sıcak Başlangıç</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kaşarlı Mantar (Adet)</span><div class="item-line"></div><span class="item-price">150 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kalamar</span><div class="item-line"></div><span class="item-price">800 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kaşarlı Patlıcan</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Ahtapot Izgara</span><div class="item-line"></div><span class="item-price">1.000 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Karides Cızlama</span><div class="item-line"></div><span class="item-price">700 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Baby Kalamar Izgara (Hellimli)</span><div class="item-line"></div><span class="item-price">1.000 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Zinnur Börek</span><div class="item-line"></div><span class="item-price">600 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Balık Surumi</span><div class="item-line"></div><span class="item-price">600 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mücver (Adet)</span><div class="item-line"></div><span class="item-price">200 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Levrek Simit (Adet)</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Girit Lokumu</span><div class="item-line"></div><span class="item-price">600 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Çıtır Fava</span><div class="item-line"></div><span class="item-price">500 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Karides Mantı</span><div class="item-line"></div><span class="item-price">500 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kabak Tempura</span><div class="item-line"></div><span class="item-price">400 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">İstiridye Cızlama</span><div class="item-line"></div><span class="item-price">500 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kalamar Dolma (Adet)</span><div class="item-line"></div><span class="item-price">600 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Saganaki</span><div class="item-line"></div><span class="item-price">500 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Sıcak Ot</span><div class="item-line"></div><span class="item-price">450 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Patates Tava</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+    </div>
+  </section>
+
+  <!-- DENİZ ÜRÜNLERİ -->
+  <section class="menu-section fade-in" id="denizurunleri">
+    <div class="section-header">
+      <span class="section-label">Taze Avlanmış</span>
+      <h2 class="section-title">Deniz Ürünleri</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekir</span><div class="item-line"></div><span class="item-price">750 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Somon</span><div class="item-line"></div><span class="item-price">800 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Lüfer</span><div class="item-line"></div><span class="item-price">1.500 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Levrek Kavurma</span><div class="item-line"></div><span class="item-price">2.400 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Deniz Levrek (Kg.)</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Deniz Çipura (Kg.)</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+    </div>
+  </section>
+
+  <!-- TATLILAR -->
+  <section class="menu-section fade-in" id="tatlilar">
+    <div class="section-header">
+      <span class="section-label">Şeker</span>
+      <h2 class="section-title">Tatlılar</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Sufle</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Ayva Tatlısı</span><div class="item-line"></div><span class="item-price">250 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kabak Tatlısı</span><div class="item-line"></div><span class="item-price">250 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Çıtır Kabak Tatlısı</span><div class="item-line"></div><span class="item-price">250 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Pancar Tatlısı</span><div class="item-line"></div><span class="item-price">250 ₺</span></div>
+    </div>
+  </section>
+
+  <!-- ŞARAP -->
+  <section class="menu-section fade-in" id="sarap">
+    <div class="section-header">
+      <span class="section-label">Seçkin</span>
+      <h2 class="section-title">Şarap Menüsü</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="wine-tabs">
+      <button class="wine-tab active" onclick="showWine('beyaz', this)">Beyaz</button>
+      <button class="wine-tab" onclick="showWine('rose', this)">Rosé</button>
+      <button class="wine-tab" onclick="showWine('kirmizi', this)">Kırmızı</button>
+    </div>
+
+    <div class="wine-panel active" id="wine-beyaz">
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">7 Bilgeler Khilon Sauvignon Blanc</span><div class="item-line"></div><span class="item-price">2.800 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Cielo Sauvignon Blanc</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mor Salkım Sauvignon Blanc</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mor Salkım Aksümbül</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">7 Bilgeler Anaxagoras Chardonnay</span><div class="item-line"></div><span class="item-price">2.800 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Suvla Narince</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mor Salkım Bornova Misketi</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Suvla Sidalan</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Suvla Kınalı Yapıncak</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+      </div>
+    </div>
+
+    <div class="wine-panel" id="wine-rose">
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mor Salkım Vivace Merlot</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Suvla Karasakız</span><div class="item-line"></div><span class="item-price">2.100 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Cielo Pinot Grigio</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+      </div>
+    </div>
+
+    <div class="wine-panel" id="wine-kirmizi">
+      <div class="menu-grid">
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mor Salkım Cantabile</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Suvla Kalecik Karası</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Cielo Merlot</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Suvla Papaskarası</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yusta Shiraz 2021</span><div class="item-line"></div><span class="item-price">3.100 ₺</span></div>
+        <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Cielo Cabernet Sauvignon</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAKI -->
+  <section class="menu-section fade-in" id="raki">
+    <div class="section-header">
+      <span class="section-label">Geleneksel</span>
+      <h2 class="section-title">Rakı Menüsü</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="raki-cols">
+      <div class="raki-block">
+        <p class="raki-block-title">Yeni Rakı & Tekirdağ</p>
+        <div class="menu-grid" style="grid-template-columns:1fr;">
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı 20cl</span><div class="item-line"></div><span class="item-price">1.000 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı 35cl</span><div class="item-line"></div><span class="item-price">1.600 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı 50cl</span><div class="item-line"></div><span class="item-price">2.200 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı 70cl</span><div class="item-line"></div><span class="item-price">2.800 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı 100cl</span><div class="item-line"></div><span class="item-price">3.300 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı Yeni Seri 35cl</span><div class="item-line"></div><span class="item-price">1.800 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Yeni Rakı Yeni Seri 70cl</span><div class="item-line"></div><span class="item-price">3.000 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Altın 20cl</span><div class="item-line"></div><span class="item-price">1.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Altın 35cl</span><div class="item-line"></div><span class="item-price">2.000 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Altın 50cl</span><div class="item-line"></div><span class="item-price">2.700 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Altın 70cl</span><div class="item-line"></div><span class="item-price">3.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Altın 100cl</span><div class="item-line"></div><span class="item-price">3.900 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Göbek 35cl</span><div class="item-line"></div><span class="item-price">2.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Göbek 70cl</span><div class="item-line"></div><span class="item-price">3.300 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Tekirdağ Göbek 100cl</span><div class="item-line"></div><span class="item-price">4.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Sarı Zeybek 3 Meşe 35cl</span><div class="item-line"></div><span class="item-price">2.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Sarı Zeybek 3 Meşe 70cl</span><div class="item-line"></div><span class="item-price">3.300 ₺</span></div>
+        </div>
+      </div>
+      <div class="raki-block">
+        <p class="raki-block-title">Kulüp, Mercan & Beylerbeyi</p>
+        <div class="menu-grid" style="grid-template-columns:1fr;">
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kulüp 35cl</span><div class="item-line"></div><span class="item-price">2.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mercan 20cl</span><div class="item-line"></div><span class="item-price">1.400 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mercan 35cl</span><div class="item-line"></div><span class="item-price">2.300 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mercan 50cl</span><div class="item-line"></div><span class="item-price">3.000 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Mercan 70cl</span><div class="item-line"></div><span class="item-price">3.500 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Prototip 70cl</span><div class="item-line"></div><span class="item-price">4.000 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Göbek 20cl</span><div class="item-line"></div><span class="item-price">1.200 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Göbek 35cl</span><div class="item-line"></div><span class="item-price">2.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Göbek 50cl</span><div class="item-line"></div><span class="item-price">2.800 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Göbek 70cl</span><div class="item-line"></div><span class="item-price">3.300 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Göbek 100cl</span><div class="item-line"></div><span class="item-price">4.100 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi İncirden 35cl</span><div class="item-line"></div><span class="item-price">2.200 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi İncirden 70cl</span><div class="item-line"></div><span class="item-price">3.500 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Mavi 35cl</span><div class="item-line"></div><span class="item-price">1.700 ₺</span></div>
+          <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Beylerbeyi Terra Gold 35cl</span><div class="item-line"></div><span class="item-price">2.100 ₺</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BİRA & MEŞRUBATlar -->
+  <section class="menu-section fade-in" id="bira">
+    <div class="section-header">
+      <span class="section-label">Soğuk</span>
+      <h2 class="section-title">Bira & Meşrubat</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="sub-title">Bira</div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Efes+1 50cl</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Efes Özel Seri 50cl</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Belfast 50cl</span><div class="item-line"></div><span class="item-price">300 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Corona 33cl</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Miller 33cl</span><div class="item-line"></div><span class="item-price">350 ₺</span></div>
+    </div>
+
+    <div class="sub-title">Meşrubat</div>
+    <div class="menu-grid">
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Soda</span><div class="item-line"></div><span class="item-price">100 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Şalgam</span><div class="item-line"></div><span class="item-price">100 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Kola</span><div class="item-line"></div><span class="item-price">120 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Churchill</span><div class="item-line"></div><span class="item-price">150 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Redbull</span><div class="item-line"></div><span class="item-price">200 ₺</span></div>
+      <div class="menu-item"><div class="item-bullet"></div><span class="item-name">Uludağ Premium 1lt.</span><div class="item-line"></div><span class="item-price">100 ₺</span></div>
+    </div>
+  </section>
+
+</div><!-- /menu-container -->
+
+<!-- Footer -->
+<div class="menu-footer">
+  <p class="menu-footer-logo">MANDALIA MUDANYA</p>
+  <p class="menu-footer-sub">© 2026 — Mudanya Sahil Yolu, Bursa</p>
+</div>
+
+<script>
+  // Wine tab switcher
+  function showWine(type, btn) {
+    document.querySelectorAll('.wine-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.wine-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('wine-' + type).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Sticky nav active state
+  const sections = document.querySelectorAll('.menu-section');
+  const navLinks = document.querySelectorAll('.cat-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector(`.cat-nav a[href="#${e.target.id}"]`);
+        if (link) {
+          link.classList.add('active');
+          link.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+        }
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Fade in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  fadeEls.forEach(el => fadeObs.observe(el));
+</script>
+</body>
+</html>
